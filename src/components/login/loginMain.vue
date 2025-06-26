@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import http from '../../utils/http'
+import authService from '../../services/auth'
 export default {
   name: 'LoginMain',
   data() {
@@ -80,6 +82,12 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           console.log('submit', valid, this.loginFormData)
+          authService.login(this.loginFormData)
+          // 使用POST请求
+          // http
+          //   .post('/api/users', this.loginFormData)
+          //   .then(data => console.log(data))
+          //   .catch(error => console.error(error))
         } else {
           console.log('error submit!!')
           return false

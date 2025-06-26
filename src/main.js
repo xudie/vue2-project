@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import { get, post, put, del } from './utils/request'
+// import http from './utils/http'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
 // 挂载到 Vue 原型上
-Vue.prototype.$http = { get, post, put, del }
+// Vue.prototype.$http = http
 
 Vue.config.productionTip = false
 
