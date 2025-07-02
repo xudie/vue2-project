@@ -44,7 +44,7 @@
             <el-checkbox v-model="loginFormData.remember">记住我 </el-checkbox>
           </el-col>
           <el-col :span="5">
-            <el-link type="primary" :underline="false" href=""
+            <el-link type="primary" :underline="false" href="/forget"
               >忘记密码
             </el-link>
           </el-col>
@@ -56,7 +56,9 @@
         >
       </el-form-item>
       <el-form-item class="login-register">
-        <el-link type="primary" :underline="false" href="">注册账号</el-link>
+        <el-link type="primary" :underline="false" href="/register"
+          >注册账号</el-link
+        >
       </el-form-item>
     </el-form>
   </div>
