@@ -12,11 +12,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const token = localStorage.getItem('token')
-
+  const token = localStorage.getItem('userToken')
   // 不需要认证的路由直接放行
   if (to.matched.some(record => !record.meta.requiresAuth)) {
-    return next()
+    if (token) {
+      return next('/')
+    } else {
+      return next()
+    }
   }
 
   // 需要认证的路由处理
@@ -24,26 +27,16 @@ router.beforeEach(async (to, from, next) => {
     // 如果有 token，验证 token 有效性
     try {
       // 使用封装的 Axios 验证 token
-      const { isValid } = await Vue.prototype.$http.get('/auth/verify')
-
-      if (isValid) {
-        next()
-      } else {
-        // token 无效，清除并跳转到登录页
-        localStorage.removeItem('token')
-        next('/login')
-      }
+      // const { isValid } = await Vue.prototype.$http.get('/auth/verify')
+      next()
     } catch (error) {
-      console.error('Token 验证失败:', error)
-      localStorage.removeItem('token')
+      localStorage.removeItem('userToken')
       next('/login')
     }
   } else {
     // 没有 token，跳转到登录页
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
+    console.log('没有 token，跳转到登录页')
+    next('/login')
   }
 })
 
